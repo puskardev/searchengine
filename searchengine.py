@@ -83,25 +83,19 @@ for filename in tf_alltok:
     #initialize the tf-idf vector for each doc
     vectors[filename]=Counter()
     sum_square=0
-    for token in tf_alltok[filename]:
-        #weight stores the non-normalized tf-idf weight for a token in doc 'filename'
-        weight = tfidf_weight(filename, token)
-        #the weight found above is stored in vectors{} dict
-        vectors[filename][token]=weight
-        # summing each weight and adding to a sum_sqaure as a part of normalization process.
-        sum_square = sum_square + weight**2
-    #stores the length for each file.
+    for token in tf_alltok[filename]:        
+        weight = tfidf_weight(filename, token)        
+        vectors[filename][token]=weight        
+        sum_square = sum_square + weight**2   
+    
     lengths[filename]=math.sqrt(sum_square)
 
 # 2.  normalizing the tf-idf weights in vectors{} dict.
 for filename in vectors:
-    for token in vectors[filename]:
-        # normalize tf-idf weight for each token by dividing it by normalizing length of the document.
+    for token in vectors[filename]:       
         vectors[filename][token]= vectors[filename][token] / lengths[filename]
-        if token not in post_list:
-            #create posting list
-            post_list[token]=Counter()
-        #every element in post_list gives token t's weight w in a document d.
+        if token not in post_list:            
+            post_list[token]=Counter()       
         post_list[token][filename]=vectors[filename][token]
 
 #-----------------------------------------------------------------------
