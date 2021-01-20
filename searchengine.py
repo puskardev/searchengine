@@ -183,7 +183,7 @@ def query(qstring):
         else:
             #(7.4) if upper bound score is greater it will return fetch more
             return "fetch more",0
-     #if none of the tokens are in vocabulary, return non
+    
     except UnboundLocalError:
         return "None",0
 #-------------------------------------------------------------------------------------
